@@ -1,0 +1,8 @@
+.active{
+    background-color: chartreuse;
+    text-align: center;
+}
+
+.navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .show > .nav-link{
+    color: #000;
+}

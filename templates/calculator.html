@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+  <body>
+    <form class="container border border-5 border-warning my-5" method='post'>
+        {% csrf_token %}
+        <h1 class="text-center shadow-sm p-3 mb-5 bg-body rounded">CALCULATOR</h1>
+        <div class="input-group mb-3">
+            <span class="input-group-text">Number 1</span>
+            <input type="text" class="form-control" name="Num1" aria-label="Amount (Please Enter Value)">
+            <span class="input-group-text">.00</span>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text">Number 2</span>
+            <input type="text" name="Num2" class="form-control" aria-label="Amount (Please Enter Value)">
+            <span class="input-group-text">.00</span>
+        </div>
+        <div class="form-check form-switch">
+            <input class="form-check-input" name="cal_option" type="checkbox" id="Addition" value="Addition">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Addition</label>
+        </div>
+        <div class="form-check form-switch">
+            <input class="form-check-input" name="cal_option"  type="checkbox" id="Substraction" value="Substraction">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Substraction</label>
+        </div>
+        <div class="form-check form-switch">
+            <input class="form-check-input" name="cal_option"  type="checkbox" id="Division" value="Division">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Division</label>
+        </div>
+        <div class="form-check form-switch">
+            <input class="form-check-input" name="cal_option"  type="checkbox" id="Multiplication" value="Multiplication">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Multiplication</label>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2 mb-2">Calculate</button>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon3">Output is : </span>
+            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+          </div>
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>
+{% endblock %}
