@@ -32,13 +32,13 @@ def Contact(request):
     return render(request, 'contact.html', data)
 
 def Calculator(request):
-    data = 0
+    data = {}
     try:
         if request.method == "POST":
             Number1 = int(request.POST.get("Num1"))
             Number2 = int(request.POST.get("Num2"))
             Cal_option = request.POST.get("cal_option")
-            print(f"Number1 = {Number1} , Number2 = {Number2}, Cal = {Cal_option}")
+            print(f"{Number1} {Cal_option} {Number2} = ")
             if Cal_option == 'Addition':
                 data = Number1 + Number2
             elif Cal_option == 'Substraction':
@@ -47,7 +47,12 @@ def Calculator(request):
                 data = Number1 * Number2
             else:
                 data = Number1/Number2
+            data = {
+                'result': data,
+                'Number1' : Number1,
+                'Number2' : Number2
+            }
     except Exception as e:
         print("Error Occured")
     print(data)
-    return render(request, 'calculator.html', {data: data})
+    return render(request, 'calculator.html', data)
