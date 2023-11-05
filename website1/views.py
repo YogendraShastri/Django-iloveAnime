@@ -6,10 +6,18 @@ from services import models
 from services.models import Service, Notification
 # from .forms import Usersform
 
+def Notify(request, page_id):
+    Notic_details = Notification.objects.get(id=page_id)
+    data = {
+
+        'Notic_details': Notic_details
+    }
+    return render(request, 'notify.html', data)
+
 def AboutUs(request):
     data = {
         'title':'About Us Page',
-        'content': "Welcome to About us Page"
+        'content': "Welcome to About us Page",
     }
     return render(request, 'aboutus.html', data)
 

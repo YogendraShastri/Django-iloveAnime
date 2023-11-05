@@ -4,7 +4,7 @@
 <marquee onmouseover="stop()" onmouseout="start()">
     {% for notice in notice_data %}
     &nbsp;&nbsp;&nbsp;
-    <a href="/">{{ notice.Notification_title }}</a> 
+    <a href="notification_page/{{notice.id}}">{{ notice.Notification_title }}</a> 
     &nbsp;&nbsp;&nbsp;
     {% endfor %}
 </marquee>

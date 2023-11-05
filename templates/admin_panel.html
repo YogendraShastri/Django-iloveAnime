@@ -2,13 +2,23 @@
 {% load static %}
 <div class="container pt-5">
     <div class="row">
-        <div class="col">
+        <div class="col-md-4 col-sm-6">
             <div class="card" style="width: 18rem;">
                 <img src="{% static '/images/services.jpg' %}" class="card-img-top" alt="...">
                 <div class="card-body">
                   <h5 class="card-title">Services</h5>
                   <p class="card-text"></p> Click here for the Adding, Removing and Updating Services</p>
                   <a href="/edit-service" class="btn btn-primary">Go to Services</a>
+                </div>
+              </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div class="card" style="width: 18rem;">
+                <img src="{% static '/images/notice.jpg' %}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Notification</h5>
+                  <p class="card-text"></p> Click here for the Adding, Removing and Updating notifications</p>
+                  <a href="/edit-service" class="btn btn-primary">Go to Notifications</a>
                 </div>
               </div>
         </div>

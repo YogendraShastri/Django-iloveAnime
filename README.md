@@ -431,9 +431,40 @@ python3 manage.py changepassword admin
 
 ###################################################
 
-# install tynemce for better text editing
+# dynamic page redirecting
 
-pip3 install django-tinymce
+# views.py
+
+def service(request, page_id):
+    service_details = Service.objects.get(id=page_id)
+    data = {
+
+        'service_details': service_details
+    }
+    return render(request, 'service_page.html', data)
+
+# urls.py
+
+path('services/<page_id>', views.service, name='service')
+
+# service_page.html
+
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1>{{ service_details.service_title }}</h1>
+        <br>
+        <p>{{ service_details.service_desc  }}</p>
+      </div>
+    </div> 
+  </div>
 
 ###################################################
+
+
+
+###################################################
+
+
+
 

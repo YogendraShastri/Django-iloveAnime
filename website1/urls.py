@@ -26,5 +26,7 @@ urlpatterns = [
     path('',views.Home, name='home'),
     path('blog/<int:blog_id>', views.blogs),
     path('admin-panel/',views.adminPanel, name='admin-panel'),
-    path('edit-service/', views.EditService, name='edit-service')
+    path('edit-service/',views.EditService, name='edit-service'),
+    path('notification_page/<page_id>', views.Notify, name='notify'),
+    path('aboutus/',views.AboutUs)
 ]
