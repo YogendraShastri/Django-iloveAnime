@@ -1,7 +1,15 @@
 .active{
-    background-color: chartreuse;
+    background-color: chocolate;
     text-align: center;
+    color: black;
 }
+marquee {
+    background-color: black;
+    color: aliceblue;
+    line-height: 40px;
+    height: 40px;
+  }
+
 
 .navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .show > .nav-link{
     color: #000;

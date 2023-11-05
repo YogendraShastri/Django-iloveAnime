@@ -25,4 +25,6 @@ urlpatterns = [
     path('calculator/',views.Calculator, name='calculator'),
     path('',views.Home, name='home'),
     path('blog/<int:blog_id>', views.blogs),
+    path('admin-panel/',views.adminPanel, name='admin-panel'),
+    path('edit-service/', views.EditService, name='edit-service')
 ]

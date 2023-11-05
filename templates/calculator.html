@@ -4,6 +4,11 @@
     <form class="container border border-5 border-warning my-5" method='post'>
         {% csrf_token %}
         <h1 class="text-center shadow-sm p-3 mb-5 bg-body rounded">CALCULATOR</h1>
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+            Please Select Any Operation !
+          </div>
+        {% endif %}
         <div class="input-group mb-3">
             <span class="input-group-text">Number 1</span>
             <input type="text" value="{{ Number1 }}" class="form-control" name="Num1" aria-label="Amount (Please Enter Value)">
@@ -36,6 +41,16 @@
             <input type="text" value="{{ result }}" class="form-control" id="basic-url" aria-describedby="basic-addon3">
           </div>
     </form>
+    {% comment %} <form class="container border border-5 border-warning my-5" method='post'>
+        {% csrf_token %}
+        <h1 class="text-center shadow-sm p-3 mb-5 bg-body rounded">CALCULATOR using Django Form</h1>
+        {{fn}}
+        <button type="submit" class="btn btn-primary mt-2 mb-2">Calculate</button>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon3">Output is : </span>
+            <input type="text" value="{{ result }}" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+        </div>
+    </form> {% endcomment %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   </body>
 </html>

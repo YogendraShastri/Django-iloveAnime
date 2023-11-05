@@ -1,5 +1,10 @@
+from ast import Num
+from curses.ascii import isdigit
 from django.http import HttpResponse
 from django.shortcuts import render
+from services import models
+from services.models import Service, Notification
+# from .forms import Usersform
 
 def AboutUs(request):
     data = {
@@ -9,6 +14,8 @@ def AboutUs(request):
     return render(request, 'aboutus.html', data)
 
 def Home(request):
+    service_data = Service.objects.all()
+    notice_data = Notification.objects.all()
     data = {
         'title':'Home Page',
         'content': "Welcome to Home Page",
@@ -16,7 +23,9 @@ def Home(request):
         'subjects':[
             {'name':'python', 'id':123},
             {'name':'java', 'id':234}
-        ]
+        ],
+        'service_data' : service_data,
+        'notice_data' : notice_data
     }
     return render(request, 'bootstrap5.html', data)
     # return render(request, 'index.html', data)
@@ -45,14 +54,22 @@ def Calculator(request):
                 data = Number1 - Number2
             elif Cal_option == 'Multiplication':
                 data = Number1 * Number2
-            else:
+            elif Cal_option == 'Division':
                 data = Number1/Number2
+            else:
+                return render(request, 'calculator.html', { 'error': True })  
             data = {
                 'result': data,
                 'Number1' : Number1,
-                'Number2' : Number2
+                'Number2' : Number2,
             }
     except Exception as e:
         print("Error Occured")
     print(data)
     return render(request, 'calculator.html', data)
+
+def adminPanel(request):
+    return render(request, 'admin_panel.html')
+
+def EditService(request):
+    return render(request, 'edit_service.html')

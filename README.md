@@ -31,7 +31,7 @@ Spotify
 - Javascript, Jquery little
 
 #############################################################
-#Setup Django Project
+# setup Django Project
 [Linux]
 pip freeze - to see installed packages.
 pip3 install django
@@ -50,7 +50,7 @@ statis - js, static images,
 media - dynamic images, files, products etc.
 #############################################################
 
-#MVT (Model View Template):
+# MVT (Model View Template):
 - Software design pattern
 Model - data bases table, data manupulation,
 View - User interface to render website.
@@ -58,7 +58,7 @@ Template - HTML outputs, dynamic contents etc.
 USER --> DjangoWebsite --> URLs --> View --> MODEL & Template
 
 #############################################################
-#Migrate and Migration
+# Migrate and Migration
 Superuser for db create :
 python3 manage.py makemigration  : to make tables using models.
 python3 manage.py migrate : apply changes to db 
@@ -72,7 +72,7 @@ python3 manage.py createsuperuser
 (pass details)
 #############################################################
 
-#Urls and Views
+# Urls and Views
 Urls - creating routes for the redirection on page.
 https://www.google.com/blogs  --> show blogs page at google.com 
 {Urls}/{slug}
@@ -82,8 +82,9 @@ Views - on clicking on urls which view will be called.
 Function based views - 
 Class based views - 
 
-#Create URLs & Views in django
+
 #############################################################
+# Create URLs & Views in django
 create a view.py file on app folder (folder under project)
 in views.py 
 
@@ -99,7 +100,7 @@ from Project_Name import views
 add this :  path("contact-us/',views.Contact)
 #############################################################
 
-dynamic routes :
+# dynamic routes 
 
 Urls changes and redirection on different pages.
 3 types - int, str, slug
@@ -119,7 +120,7 @@ def blogs(request, blog_title):
 
 #############################################################
 
-render html Templates
+# render html Templates
 - Create a folder named as templates
 - put htmls files inside it.
 - 
@@ -157,7 +158,7 @@ path("",views.homePage)
 
 #############################################################
 
-Passing data to HTML Pages using views
+# Passing data to HTML Pages using views
 - create dictionary and pass it as parameter
 
 views.py 
@@ -180,7 +181,7 @@ index.html
 
 #############################################################
 
-looping in django
+# looping in django
 
 #index.html
 
@@ -202,7 +203,8 @@ refer documentation to check more.
 
 #############################################################
 
-if else condition in django:
+# if else condition in django:
+
 {% if pages|length < 0 %}
     <h1> Pages list not found </h1>
 {% endif %}
@@ -216,7 +218,8 @@ if else condition in django:
 
 #############################################################
 
-Static folder in django : Javascript, CSS, images etc
+# Static folder in django 
+Javascript, CSS, images etc
 
 to access static folder add this line on settings.py
 
@@ -232,7 +235,7 @@ ETC
 
 #############################################################
 
-Header and footer in django : Incudes in django
+# Header and footer in django : Incudes in django
 
 create header & footer html files and add them into other pages :
 
@@ -252,7 +255,7 @@ index.html
 
 #############################################################
 
-Header & footer : extends in Django
+# Header & footer : extends in Django
 
 base.html
 
@@ -283,7 +286,7 @@ index.html
 
 ##########################################################
 
-url template in django
+# url template in django
 
 urls.py
 
@@ -297,7 +300,7 @@ header.html
 
 ##########################################################
 
-if else condition with django
+# if else condition with django
 
 <nav class="{% if request.path == '/aboutus/' %} active {% endif %}>
 
@@ -305,7 +308,8 @@ if else condition with django
 
 ##########################################################
 
-get method : The GET method sends the encoded user information appeneded to page request.
+# get method : 
+The GET method sends the encoded user information appeneded to page request.
              the page and the information are separated by the ? character.
 
 https://uloveanime.com:/index.html?key=value1&key2=value2
@@ -330,4 +334,106 @@ Secure HTTP.
 
 ##########################################################
 
+# Django Forms:
+
+create a froms.py inside APP.
+# forms.py
+
+from django import forms
+
+class Usersform(forms.Form):
+    num1 = forms.CharField()
+    num2 = forms.CharField()
+
+# views.py
+
+from .form import Userform
+def formValue():
+    fn = Userform()
+    data = {
+        'form_key':fn
+    }
+    return render(request, 'userform.html', data)
+
+# on html file 
+{{form_key}}
+
+##########################################################
+
+Models in Django
+
+first create app : python3 manage.py startapp service
+service > models.py
+# models.py
+
+from django.db import models
+class Service(models.Model):
+    service_icon = models.CharField(max_length=60)
+    service_title = models.CharField(max_length=100)
+    service_desc = models.TextField()
+
+settings.py from main folder
+
+# settings.py
+
+INSTALLED_APPS = [
+    'service',
+]
+
+# Terminal
+
+# python3 manage.py makemigrations
+Migrations for 'services':
+  services/migrations/0001_initial.py
+    - Create model Service
+
+# python3 manage.py migrate
+
+Populate the table on admin or register on admin:
+
+# admin.py
+
+from django.contrib import admin
+from .models import Service
+class ServiceAdmin(admin.ModelAdmin):
+    service_list = ('serv_icon', 'serv_title', 'serv_desc')
+
+admin.site.register(Service, ServiceAdmin)
+
+###################################################
+
+# get data from models
+
+# views.py
+
+from service.models import Service
+
+class HomePage(request):
+    service_data = Service.objects.all()
+    data ={
+        'serviceData': service_data
+    }
+    return render(request, 'home.html', data)
+
+# home.html
+<div>
+{% for item in serviceData %}
+<h1> {{ item.service_icon }}</h1>
+{% endfor %}
+</div>
+
+###################################################
+
+
+# change admin password
+
+python3 manage.py changepassword admin 
+
+###################################################
+
+# install tynemce for better text editing
+
+pip3 install django-tinymce
+
+###################################################
 
