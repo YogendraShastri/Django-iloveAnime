@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1> Blogs (Here)</h1>
+<div class="container">
+    <div class="row mt-3 pb-3">
+        {% for item in service_data %}
+        <div class="col-lg-10 col-md-10 mt-3">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">{{ item.service_title|safe }}</h5>
+                </div>
+                <div class="card-body"> 
+                    <div class="truncate-text" id="truncate-text">
+                        <p class="card-text">
+                        {{ item.service_detailed_desc|safe }}
+                        </p>
+                    </div>
+                    <a href="/blog/{{ item.service_slug }}" class="btn btn-primary mt-2">Read More</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        Searched Data Not Found.....
+        {% endfor %}
+        <div class="container mt-4">
+            <nav class="text-center" aria-label="Page navigation example">
+                <ul class="pagination">
+                {% if service_data.has_previous %}
+                  <li class="page-item"><a class="page-link" href="/blog/?page=1">First</a></li>
+                  <li class="page-item"><a class="page-link" href="/blog/?page={{ service_data.previous_page_number }}">Previous</a></li>
+                {% endif %}   
+                {% for i in service_page_list%}
+                  <li class="page-item"><a class="page-link" href="/blog/?page={{i}}">{{i}}</a></li>
+                {% endfor %}
+                {% if service_data.has_next %}
+                  <li class="page-item"><a class="page-link" href="/blog/?page={{ service_data.next_page_number }}">Next</a></li>
+                {% endif %} 
+                <li class="page-item"><a class="page-link" href="/blog/?page={{total_pages}}">Last</a></li>
+                </ul>
+              </nav>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .truncate-text {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        -webkit-line-clamp: 6; /* Number of lines to display */
+    }
+</style>
+{% endblock %}

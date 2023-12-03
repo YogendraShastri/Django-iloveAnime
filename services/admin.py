@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Service, Notification
+from .models import Service, Notification, NotesModel, VideosModel
 
 # Register your models here.
 class ServiceAdmin(admin.ModelAdmin):
@@ -12,5 +12,14 @@ class NotificationAdmin(admin.ModelAdmin):
 
 admin.site.register(Notification, NotificationAdmin)
 
+class NotesModelAdmin(admin.ModelAdmin):
+    notes_list = ('Notes_image', 'Notes_title', 'Notes_desc', 'Notes_Download_link')
+
+admin.site.register(NotesModel, NotesModelAdmin)
+
+class VideosModelsAdmin(admin.ModelAdmin):
+    video_list = ('video_title', 'video_link', 'banner_image', 'video_desc', 'video_slug')
+
+admin.site.register(VideosModel, VideosModelsAdmin)
 
 

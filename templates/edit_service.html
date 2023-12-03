@@ -1,6 +1,41 @@
 {% extends 'base.html' %}
 {% block content %}
-
-
-
+{% load static %}
+<div class="container">
+    <div class="d-grid gap-2 mb-2 mt-3">
+        <button class="btn btn-primary btn-outline-warning" type="button">EDIT Blogs</button>
+    </div>
+</div>
+<div class="container">
+    <form  method='post' enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label" for="customFile">Service Icon</label>
+            <input type="file" class="form-control" name="service_icon" placeholder="Service icon" />
+        </div>
+        <div class="mb-3">
+            <label for="service_data2" class="form-label">Service Title</label>
+            <input type="text" class="form-control" name="service_title" placeholder="Service title">
+        </div>
+        <div class="mb-3">
+            <label for="service_data3" class="form-label">Service Small Description</label>
+            <textarea class="form-control" name="service_small_desc" rows="3" placeholder="Please enter small description"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="service_data4" class="form-label">Service Detailed Description</label>
+            <textarea class="form-control" name="service_detailed_desc" rows="3" placeholder="Please enter Detailed description"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success mb-5">Save</button>
+    </form>
+    <script src="{% static 'tinymce/tinymce.min.js' %}"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            height: 300,
+            width: 1111,
+            plugins: 'link',
+            menubar: 'file edit view insert format table',
+        });
+    </script>
+</div>
 {% endblock %}

@@ -461,7 +461,24 @@ path('services/<page_id>', views.service, name='service')
 
 ###################################################
 
+# adding media File on django :
 
+Create a media folder on main folder
+
+# setting.py
+from os import path
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = path.join(BASE_DIR, 'media')
+
+
+# urls.py
+from django.conf import settings
+from django.conf.urls.static import static
+
+[at last]
+if settings.DEBUG:
+    urlpatterns = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 ###################################################
 

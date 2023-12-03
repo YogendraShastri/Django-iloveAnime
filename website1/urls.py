@@ -14,19 +14,31 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from doctest import debug
+import stat
 from django.contrib import admin
 from django.urls import path
 from website1 import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('aboutus/',views.AboutUs, name='about'),
     path('contactus/',views.Contact, name='contact'),
+    path('blog/',views.blogs, name='blog'),
+    path('blog/<slug>',views.Open_blogs, name='openblog'),
+    path('videos/',views.videos, name='videos'),
     path('calculator/',views.Calculator, name='calculator'),
     path('',views.Home, name='home'),
-    path('blog/<int:blog_id>', views.blogs),
+    # path('blog/<int:blog_id>', views.blogs_p),
     path('admin-panel/',views.adminPanel, name='admin-panel'),
     path('edit-service/',views.EditService, name='edit-service'),
-    path('notification_page/<page_id>', views.Notify, name='notify'),
-    path('aboutus/',views.AboutUs)
+    path('notification_page/<slug>', views.Notify, name='notify'),
+    path('aboutus/',views.AboutUs),
+    path('notes/',views.Notes, name='notes'),
 ]
+
+# Serve media files during development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

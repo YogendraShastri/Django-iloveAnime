@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row mb-3 pb-3">
+        {% for item in notes_data %}
+        <div class="col-lg-4 col-md-6 me-5 mt-3">
+            <div class="single-feature mb-30 bg-black rounded">
+                <div class="card">
+                    <div class="card shadow-lg">
+                    <img class="card-img-top rounded-image" src="{{ item.Notes_image.url }}" alt="Card image cap">
+                    <div class="card-body half-rounded-top" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+                        <h5 class="card-title">{{ item.Notes_title|safe }}</h5>
+                        <p class="card-text">
+                        {{ item.Notes_desc|safe }}
+                        </p>
+                        <a href="{{ item.Notes_Download_link }}/export?format=pdf" class="btn btn-primary">Download Notes</a>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        Searched Data Not Found.....
+        {% endfor %}
+        <div class="container mt-4">
+            <nav class="text-center" aria-label="Page navigation example">
+                <ul class="pagination">
+                {% if service_data.has_previous %}
+                  <li class="page-item"><a class="page-link" href="/notes/?page=1">First</a></li>
+                  <li class="page-item"><a class="page-link" href="/notes/?page={{ notes_data.previous_page_number }}">Previous</a></li>
+                {% endif %}   
+                {% for i in service_page_list%}
+                  <li class="page-item"><a class="page-link" href="/notes/?page={{i}}">{{i}}</a></li>
+                {% endfor %}
+                {% if service_data.has_next %}
+                  <li class="page-item"><a class="page-link" href="/notes/?page={{ notes_data.next_page_number }}">Next</a></li>
+                {% endif %} 
+                <li class="page-item"><a class="page-link" href="/notes/?page={{total_pages}}">Last</a></li>
+                </ul>
+              </nav>
+        </div>
+    </div>
+</div>
+<style>
+    .card-img-top{
+        border-radius: 50%;
+    }
+    .card:hover {
+        background-color: #454545; /* Clhange to your desired hover color */
+        text-align: center;
+        transition: color 0.3s;
+        color: white;
+    }
+    .btn-primary:hover {
+        background-color: #28a745; /* Change to Bootstrap success color */
+    }
+</style>
+  </body>
+</html>
+
+{% endblock %}

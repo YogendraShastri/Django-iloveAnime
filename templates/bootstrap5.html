@@ -4,7 +4,12 @@
 <marquee onmouseover="stop()" onmouseout="start()">
     {% for notice in notice_data %}
     &nbsp;&nbsp;&nbsp;
-    <a href="notification_page/{{notice.id}}">{{ notice.Notification_title }}</a> 
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
+        <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+    </svg>
+    &nbsp;
+    <i class="{{ notice.Notification_icon }}"></i>
+    <a href="notification_page/{{notice.Notification_slug}}">{{ notice.Notification_title }}</a> 
     &nbsp;&nbsp;&nbsp;
     {% endfor %}
 </marquee>
@@ -26,17 +31,42 @@
     </div>
 </section>
 <div class="container">
-    <div class="row">
+    <div class="row mb-3 pb-3">
         {% for item in service_data %}
-        <div class="col-lg-4 col-md-6">
+        <div class="col-lg-4 col-md-6 mt-3">
             <div class="single-feature mb-30">
-                <h1>{{ item.service_title }}</h1>
-                <p>
-                    {{ item.service_desc }}
-                </p>
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="{{ item.service_icon.url }}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.service_title|safe }}</h5>
+                        <p class="card-text">
+                        {{ item.service_desc|safe }}
+                        </p>
+                        <a href="/blog/{{ item.service_slug }}" class="btn btn-primary">Read More .....</a>
+                    </div>
+                </div>
             </div>
         </div>
+        {% empty %}
+        Searched Data Not Found.....
         {% endfor %}
+        <div class="container mt-4">
+            <nav class="text-center" aria-label="Page navigation example">
+                <ul class="pagination">
+                {% if service_data.has_previous %}
+                  <li class="page-item"><a class="page-link" href="/?page=1">First</a></li>
+                  <li class="page-item"><a class="page-link" href="/?page={{ service_data.previous_page_number }}">Previous</a></li>
+                {% endif %}   
+                {% for i in service_page_list%}
+                  <li class="page-item"><a class="page-link" href="/?page={{i}}">{{i}}</a></li>
+                {% endfor %}
+                {% if service_data.has_next %}
+                  <li class="page-item"><a class="page-link" href="/?page={{ service_data.next_page_number }}">Next</a></li>
+                {% endif %} 
+                <li class="page-item"><a class="page-link" href="/?page={{total_pages}}">Last</a></li>
+                </ul>
+              </nav>
+        </div>
     </div>
 </div>
 {% endblock %}

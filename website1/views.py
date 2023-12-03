@@ -1,18 +1,24 @@
-from ast import Num
-from curses.ascii import isdigit
+import re
 from django.http import HttpResponse
 from django.shortcuts import render
 from services import models
-from services.models import Service, Notification
-# from .forms import Usersform
+from services.models import Service, Notification, NotesModel, VideosModel
+from django.core.paginator import Paginator
 
-def Notify(request, page_id):
-    Notic_details = Notification.objects.get(id=page_id)
+def Notify(request, slug):
+    Notic_details = Notification.objects.get(Notification_slug=slug)
     data = {
 
         'Notic_details': Notic_details
     }
     return render(request, 'notify.html', data)
+
+def Open_blogs(request, slug):
+    blog_details = Service.objects.get(service_slug=slug)
+    data = {
+        'blog_data': blog_details
+    }
+    return render(request, 'open_blog.html', data)
 
 def AboutUs(request):
     data = {
@@ -24,6 +30,14 @@ def AboutUs(request):
 def Home(request):
     service_data = Service.objects.all()
     notice_data = Notification.objects.all()
+    if request.method == 'GET':
+        search_term = request.GET.get("search_keyword")
+        if search_term != None :
+            service_data = Service.objects.filter(service_desc__icontains=search_term)
+    paginator = Paginator(service_data, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    total_pages = page_obj.paginator.num_pages
     data = {
         'title':'Home Page',
         'content': "Welcome to Home Page",
@@ -32,14 +46,31 @@ def Home(request):
             {'name':'python', 'id':123},
             {'name':'java', 'id':234}
         ],
-        'service_data' : service_data,
+        'service_data' : page_obj,
+        'total_pages' : total_pages,
+        'service_page_list' : [i+1 for i in range(total_pages)],
         'notice_data' : notice_data
     }
     return render(request, 'bootstrap5.html', data)
     # return render(request, 'index.html', data)
 
-def blogs(request, blog_id):
-    return HttpResponse(f"Blog No {blog_id}")
+def blogs(request):
+    service_data = Service.objects.all()
+    if request.method == 'GET':
+        search_term = request.GET.get("search_keyword")
+        if search_term != None :
+            service_data = Service.objects.filter(service_desc__icontains=search_term)
+    paginator = Paginator(service_data, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    total_pages = page_obj.paginator.num_pages
+    data = {
+        'service_data' : page_obj,
+        'total_pages' : total_pages,
+        'service_page_list' : [i+1 for i in range(total_pages)]
+    }
+    print(f"Blogs are {data['service_data']}")
+    return render(request, 'blogs.html', data)
 
 def Contact(request):
     data = {
@@ -79,5 +110,47 @@ def Calculator(request):
 def adminPanel(request):
     return render(request, 'admin_panel.html')
 
+def videos(request):
+    allVideos = VideosModel.objects.all()
+    video_id = 0
+    for video in allVideos:
+        video_id = video.video_link.split('/')[-1]
+    if request.method == 'GET':
+        search_term = request.GET.get("search_keyword")
+        if search_term != None :
+            allVideos = VideosModel.objects.filter(video_desc__icontains=search_term)
+    paginator = Paginator(allVideos, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    total_pages = page_obj.paginator.num_pages
+    data = {
+        'videos_data' : page_obj,
+        'total_pages' : total_pages,
+        'videos_page_list' : [i+1 for i in range(total_pages)],
+        'video_id': video_id
+    }
+    return render(request, 'videos.html', data)
+
+def Notes(request):
+    allNotes = NotesModel.objects.all()
+    paginator = Paginator(allNotes, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    total_pages = page_obj.paginator.num_pages
+    data = {
+        'notes_data' : page_obj,
+        'total_pages' : total_pages,
+        'notes_page_list' : [i+1 for i in range(total_pages)]
+    }
+    return render(request, 'notes.html', data)
+
 def EditService(request):
+    if request.method == "POST":
+        icon = request.FILES.get('service_icon')
+        title = request.POST.get('service_title')
+        desc = request.POST.get('service_small_desc')
+        detailed_desc = request.POST.get('service_detailed_desc')
+        print(f"{icon} + {title} + {desc} + {detailed_desc}")
+        en = Service(service_icon=icon, service_title=title,service_desc=desc,service_detailed_desc=detailed_desc)
+        en.save()
     return render(request, 'edit_service.html')
