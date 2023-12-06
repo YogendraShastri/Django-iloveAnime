@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1> Blogs (Here)</h1>
+<h1 class="text-center text-primary"> BLOGS </h1>
 <div class="container">
     <div class="row mt-3 pb-3">
         {% for item in service_data %}
@@ -30,7 +30,7 @@
                   <li class="page-item"><a class="page-link" href="/blog/?page={{ service_data.previous_page_number }}">Previous</a></li>
                 {% endif %}   
                 {% for i in service_page_list%}
-                  <li class="page-item"><a class="page-link" href="/blog/?page={{i}}">{{i}}</a></li>
+                  <li class="page-item {% if service_data.number == i %}active{% endif %}"><a class="page-link" href="/blog/?page={{i}}">{{i}}</a></li>
                 {% endfor %}
                 {% if service_data.has_next %}
                   <li class="page-item"><a class="page-link" href="/blog/?page={{ service_data.next_page_number }}">Next</a></li>

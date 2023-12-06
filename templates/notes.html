@@ -3,12 +3,12 @@
 <div class="container mt-5">
     <div class="row mb-3 pb-3">
         {% for item in notes_data %}
-        <div class="col-lg-4 col-md-6 me-5 mt-3">
+        <div class="col-lg-3 col-md-4 col-sm-6 mt-3">
             <div class="single-feature mb-30 bg-black rounded">
                 <div class="card">
                     <div class="card shadow-lg">
                     <img class="card-img-top rounded-image" src="{{ item.Notes_image.url }}" alt="Card image cap">
-                    <div class="card-body half-rounded-top" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+                    <div class="card-body half-rounded-top justify-content-between" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
                         <h5 class="card-title">{{ item.Notes_title|safe }}</h5>
                         <p class="card-text">
                         {{ item.Notes_desc|safe }}
@@ -25,14 +25,14 @@
         <div class="container mt-4">
             <nav class="text-center" aria-label="Page navigation example">
                 <ul class="pagination">
-                {% if service_data.has_previous %}
+                {% if notes_data.has_previous %}
                   <li class="page-item"><a class="page-link" href="/notes/?page=1">First</a></li>
                   <li class="page-item"><a class="page-link" href="/notes/?page={{ notes_data.previous_page_number }}">Previous</a></li>
                 {% endif %}   
                 {% for i in service_page_list%}
-                  <li class="page-item"><a class="page-link" href="/notes/?page={{i}}">{{i}}</a></li>
+                  <li class="page-item {% if notes_data.number == i %}active{% endif %}"><a class="page-link" href="/notes/?page={{i}}">{{i}}</a></li>
                 {% endfor %}
-                {% if service_data.has_next %}
+                {% if notes_data.has_next %}
                   <li class="page-item"><a class="page-link" href="/notes/?page={{ notes_data.next_page_number }}">Next</a></li>
                 {% endif %} 
                 <li class="page-item"><a class="page-link" href="/notes/?page={{total_pages}}">Last</a></li>

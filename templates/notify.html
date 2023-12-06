@@ -1,25 +1,70 @@
 {% extends 'base.html' %}
 {% block content %}
-  <div class="container">
-    <div class="row">
-      <div class="col">
-        <h1>{{ Notic_details.Notification_title }}</h1>
-        <br>
-        <p>{{ Notic_details.Notification_desc  }}</p>
-      </div>
-    </div> 
+<h3 class="text-center mt-3">NOTIFICATION</h3>
+<div class="container">
+  <div class="card text-center">
+    <div class="card-header bg-success">
+      Hi! There
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{ Notic_details.Notification_title }}</h5>
+      <p class="card-text">{{ Notic_details.Notification_desc }}</p>
+      <a href="{{ Notic_details.Notice_link }}" class="btn btn-primary">Follow Link</a>
+    </div>
   </div>
-    <!-- Optional JavaScript; choose one of the two! -->
+</div>
+<br>
+<h3 class="text-center"> All NOTIFICATIONS</h3>
+  <div class="container mt-3 mx-auto center">
+    <div class="row mb-3 pb-3">
+      {% for Notic in all_notices %}
+        <div class="card text-white bg-warning mb-3 me-3" style="max-width: 20rem;">
+          <div class="card-header bg-success mt-2">NOTICE</div>
+          <div class="card-body text-dark">
+            <h5 class="card-title">{{ Notic.Notification_title }}</h5>
+            <p class="card-text">{{ Notic.Notification_desc }}</p>
+            <a href="/notification_page/{{Notic.Notification_slug}}" class="btn btn-success btn-outline-dark">Follow Link</a>
+          </div>
+        </div>
+      {% empty %}
+      Searched Data Not Found.....
+      {% endfor %}
+      <!--  Testing pagination-->
+      <div class="container mt-4">
+        <nav class="text-center" aria-label="Page navigation example">
+          <ul class="pagination">
+            {% if all_notices.has_previous %}
+              <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+              <li class="page-item"><a class="page-link" href="?page={{ all_notices.previous_page_number }}">Previous</a></li>
+            {% endif %}   
+            {% for i in all_notices.paginator.page_range %}
+              <li class="page-item {% if all_notices.number == i %}active{% endif %}">
+                <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+              </li>
+            {% endfor %}
+            {% if all_notices.has_next %}
+              <li class="page-item"><a class="page-link" href="?page={{ all_notices.next_page_number }}">Next</a></li>
+            {% endif %} 
+            <li class="page-item"><a class="page-link" href="?page={{ all_notices.paginator.num_pages }}">Last</a></li>
+          </ul>
+        </nav>
+      </div>
+      <!-- Done-->
+    </div>
+  </div>
+</div>
+<!-- Optional JavaScript; choose one of the two! -->
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<!--
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     -->
-  </body>
+</body>
+
 </html>
 
 {% endblock %}

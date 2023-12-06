@@ -1,23 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container mt-5">
+<div class="container mt-3">
     <div class="row mb-3 pb-3">
         {% for item in videos_data %}
         <div class="col-lg-4 col-md-6 me-5 mt-3">
-            <div class="single-feature mb-30 bg-black rounded">
+            <div class="single-feature mb-3 bg-black rounded">
                 <div class="card">
                     <div class="card shadow-lg">
-                    <iframe class="card-img-top" src="https://www.youtube.com/embed/{{ video_id }}" alt="Card image cap">
                     <div class="card-body half-rounded-top" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
-                        <h5 class="card-title">{{ item.video_title|safe }}</h5>
-                        <p class="card-text">
-                        {{ item.video_desc|safe }}
+                        <iframe src="https://www.youtube.com/embed/{{ video_id }}" frameborder="0" allowfullscreen></iframe>
+                        <h5 class="card-title text-center mt-2"><b>{{ item.video_title|safe }}</b></h5>
+                        <p class="text-center mt-2">
+                            {{ item.video_desc|safe }}
                         </p>
-                        <!-- Embedded YouTube Video -->
-                        <iframe width="1000" height="315" src="https://www.youtube.com/embed/{{ video_id }}" frameborder="0" allowfullscreen></iframe>
-                        <p><a href="{{ item.video_link }}" target="_blank">Watch on YouTube
-                            {{ item.video_id }}
-                        </a></p>
                         <a href="{{ item.video_link }}" class="btn btn-primary">Start Watching</a>
                     </div>
                 </div> 
