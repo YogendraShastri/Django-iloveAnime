@@ -1,77 +1,138 @@
 {% extends 'base.html' %}
 {% block content %}
-<body class="pb-5">
-<section class="Notification_Section">
-{% with top_entries=notice_data|slice:":5" %}
-<marquee onmouseover="stop()" onmouseout="start()">
-    {% for notice in top_entries %}
-    &nbsp;&nbsp;&nbsp;
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
-        <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
-    </svg>
-    &nbsp;
-    <i class="{{ notice.Notification_icon }}"></i>
-    <a href="notification_page/{{notice.Notification_slug}}">{{ notice.Notification_title }}</a> 
-    &nbsp;&nbsp;&nbsp;
-    {% endfor %}
-</marquee>
-{% endwith %}
-</section>
-<section class="container">
-    <div class="row">
-        <div class="col-12">
-            <h1>Welcome Here!</h1>
-            <p>
-                Lorem ipsum dolor sit amet consectetur, a
-                dipisicing elit. Iusto quaerat odit possimus 
-                distinctio ipsam a ad ipsum molestias quod quibusdam dolorum,
-                assumenda, quos perspiciatis non debitis. Libero vitae ex quidem!
-            </p>
-            <div class="text-center">
-                <a href="/contactus" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="We happy to assist u">Contact US</a>
-            </div>
-        </div>
-    </div>
-</section>
-<div class="container">
-    <div class="row mb-3 pb-3">
-        {% for item in service_data %}
-        <div class="col-lg-4 col-md-6 mt-3">
-            <div class="single-feature mb-30">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="{{ item.service_icon.url }}" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ item.service_title|safe }}</h5>
-                        <p class="card-text">
-                        {{ item.service_desc|safe }}
-                        </p>
-                        <a href="/blog/{{ item.service_slug }}" class="btn btn-primary">Read More .....</a>
+
+<body>
+    <section class="container-fluid" style="background-color: #121213; color: white">
+        <div class="container" style="box-sizing: border-box">
+            <div class="row">
+                <div class="col-12 col-lg-6 col-md-6 d-flex flex-column justify-content-center">
+                    <h1 class="text-warning">Welcome <b class="text-success">Here!</b></h1>
+                    <p>
+                        {{ content }}
+                    </p>
+                    <div class="text-center">
+                        <a href="/contactus" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top"
+                            title="We happy to assist u">Contact US</a>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 col-md-6 ">
+                    <div class="text-center">
+                        <img class="card-img-top" src="/static/images/ThinkBox.png" alt="Card image cap">
                     </div>
                 </div>
             </div>
         </div>
-        {% empty %}
-        Searched Data Not Found.....
-        {% endfor %}
-        <div class="container mt-4">
-            <nav class="text-center" aria-label="Page navigation example">
-                <ul class="pagination">
-                {% if service_data.has_previous %}
-                  <li class="page-item"><a class="page-link" href="/?page=1">First</a></li>
-                  <li class="page-item"><a class="page-link" href="/?page={{ service_data.previous_page_number }}">Previous</a></li>
-                {% endif %}   
-                {% for i in service_page_list%}
-                  <li class="page-item {% if service_data.number == i %}active{% endif %}"><a class="page-link" href="/?page={{i}}">{{i}}</a></li>
-                {% endfor %}
-                {% if service_data.has_next %}
-                  <li class="page-item"><a class="page-link" href="/?page={{ service_data.next_page_number }}">Next</a></li>
-                {% endif %} 
-                <li class="page-item"><a class="page-link" href="/?page={{total_pages}}">Last</a></li>
-                </ul>
-              </nav>
+    </section>
+    <section class="Notification_Section mb-auto">
+        {% with top_entries=notice_data|slice:":5" %}
+        <marquee onmouseover="stop()" onmouseout="start()" style="margin:0%; padding:0%; background-color:#212529">
+            {% for notice in top_entries %}
+            &nbsp;&nbsp;&nbsp;
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell-fill"
+                viewBox="0 0 16 16">
+                <path
+                    d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
+            </svg>
+            &nbsp;
+            <i class="{{ notice.Notification_icon }}"></i>
+            <a href="notification_page/{{notice.Notification_slug}}">{{ notice.Notification_title }}</a>
+            &nbsp;&nbsp;&nbsp;
+            {% endfor %}
+        </marquee>
+        {% endwith %}
+    </section>
+    <div class="container">
+        <h3 class="text-center mt-3 text-success"><b>RECENT BLOGS </b></H3>
+        <div class="row mb-3 pb-3">
+            {% for item in service_data %}
+            <div class="col-lg-4 col-md-6 mt-3">
+                <div class="single-feature mb-30">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="{{ item.service_icon.url }}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.service_title|safe }}</h5>
+                            <p class="card-text">
+                                {{ item.service_desc|safe }}
+                            </p>
+                            <a href="/blog/{{ item.service_slug }}" class="btn btn-primary">Read More .....</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            Searched Data Not Found.....
+            {% endfor %}
+            <div class="container mt-4">
+                <nav class="text-center" aria-label="Page navigation example">
+                    <ul class="pagination">
+                        {% if service_data.has_previous %}
+                        <li class="page-item"><a class="page-link" href="/?page=1">First</a></li>
+                        <li class="page-item"><a class="page-link"
+                                href="/?page={{ service_data.previous_page_number }}">Previous</a></li>
+                        {% endif %}
+                        {% for i in service_page_list%}
+                        <li class="page-item {% if service_data.number == i %}active{% endif %}"><a class="page-link"
+                                href="/?page={{i}}">{{i}}</a></li>
+                        {% endfor %}
+                        {% if service_data.has_next %}
+                        <li class="page-item"><a class="page-link"
+                                href="/?page={{ service_data.next_page_number }}">Next</a></li>
+                        {% endif %}
+                        <li class="page-item"><a class="page-link" href="/?page={{total_pages}}">Last</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
-</div>
-{% endblock %}
-</body>
+    &nbsp;
+    <h3 class="text-center text-success mb-3"><b>TODAY'S QUOTE</b> </H3>
+    <section class="container-fluid bg-light">
+        <div class="container mb-5" style="box-sizing: border-box">
+            <div class="row">
+                <div class="col-6 col-lg-6 col-md-6d-flex flex-column justify-content-center mb-1 mt-3">
+                    <div class="card" style="border-radius: 15px;">
+                        <div class="card-body">
+                            <div class="text-center mb-4">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-quotes/bulb.webp"
+                                    alt="Bulb" width="50">
+                            </div>
+                            <figure class="text-center mb-0">
+                                <blockquote class="blockquote">
+                                    <p class="pb-3">
+                                        <i class="fas fa-quote-left fa-xs text-primary"></i>
+                                        <span class="lead font-italic">
+                                            {{ testimonial }}
+                                        </span>
+                                        <i class="fas fa-quote-right fa-xs text-primary"></i>
+                                    </p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer mb-0">
+                                    {{ writer }}
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 col-md-6 flex-column justify-content-center">
+                    <div class="text-center" style="border-radius: 15px;">
+                        <video id="myVideo" width="350" height="250" controls loop autoplay muted>
+                            <source src="/static/videos/cgmap.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        // Get the video element
+        var video = document.getElementById("myVideo");
 
+        // Add a click event listener
+        video.addEventListener("click", function () {
+            // Redirect to the desired URL
+            window.location.href = "https://www.google.com/maps/place/%E0%A4%9B%E0%A4%A4%E0%A5%8D%E0%A4%A4%E0%A5%80%E0%A4%B8%E0%A4%97%E0%A4%A2%E0%A4%BC/@20.9290969,79.6779433,7z/data=!3m1!4b1!4m6!3m5!1s0x3a261f16c67a8bad:0x5c23f412fb179d95!8m2!3d21.2786567!4d81.8661442!16zL20vMGN2Mm0?entry=ttu"; // Replace with your desired URL
+        });
+    </script>
+    {% endblock %}
+</body>

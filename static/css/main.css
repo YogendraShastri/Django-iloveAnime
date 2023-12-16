@@ -4,10 +4,11 @@
     color: black;
 }
 marquee {
-    background-color: black;
+    background-color: rgb(114, 178, 50);
     color: aliceblue;
     line-height: 40px;
     height: 40px;
+    margin-bottom: 0%;
   }
 
 

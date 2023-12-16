@@ -8,7 +8,7 @@
                 <div class="card">
                     <div class="card shadow-lg">
                     <div class="card-body half-rounded-top" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
-                        <iframe src="https://www.youtube.com/embed/{{ video_id }}" frameborder="0" allowfullscreen></iframe>
+                        <img class="card-img-top rounded-image" src="/media/{{ item.banner_image }}" alt="Card image cap">
                         <h5 class="card-title text-center mt-2"><b>{{ item.video_title|safe }}</b></h5>
                         <p class="text-center mt-2">
                             {{ item.video_desc|safe }}

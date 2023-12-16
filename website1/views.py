@@ -58,7 +58,7 @@ def Home(request):
     total_pages = page_obj.paginator.num_pages
     data = {
         'title':'Home Page',
-        'content': "Welcome to Home Page",
+        'content': param['Front_page_content'],
         'pages': ['1','2','3','4','5'],
         'subjects':[
             {'name':'python', 'id':123},
@@ -67,7 +67,9 @@ def Home(request):
         'service_data' : page_obj,
         'total_pages' : total_pages,
         'service_page_list' : [i+1 for i in range(total_pages)],
-        'notice_data' : notice_data
+        'notice_data' : notice_data,
+        'writer': param['writer'],
+        'testimonial': param['testimonial']
     }
     return render(request, 'bootstrap5.html', data)
     # return render(request, 'index.html', data)
@@ -90,7 +92,9 @@ def blogs(request):
     return render(request, 'blogs.html', data)
 
 def Contact(request):
-    data = {}
+    data = {
+        'email_sent': False
+    }
     if request.method == "POST": 
        with get_connection(  
            host=settings.EMAIL_HOST, 
@@ -106,7 +110,8 @@ def Contact(request):
            message =request.POST.get('YourMsg')
            Name = request.POST.get('YourName')
            MSG = f"{Name} sent a Massage : {message} \nentered Emailid is {email_user}"
-           EmailMessage(subject, MSG, email_from, recipient_list, connection=connection).send()  
+           EmailMessage(subject, MSG, email_from, recipient_list, connection=connection).send()
+           data['email_sent']  = True
     return render(request, 'contact.html', data)
 
 def Calculator(request):

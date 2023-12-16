@@ -35,6 +35,15 @@
      </div>
     </form>
   </div>
+  {% if email_sent %}
+  <!-- JavaScript to display a pop-up message -->
+  <script>
+      window.onload = function() {
+          alert("Thank you! Your email has been sent.");
+      };
+  </script>
+ {% endif %} 
+
   &nbsp;&nbsp;&nbsp;
   &nbsp;&nbsp;&nbsp;
   &nbsp;&nbsp;&nbsp;
