@@ -1,15 +1,11 @@
 
-from asyncio import constants
 from django.shortcuts import render
 from services.models import Service, Notification, NotesModel, VideosModel
 from django.core.paginator import Paginator
-from  website1.constants import param
+from  website1.cred_page import param
 from django.core.mail import send_mail
 from django.core.mail import EmailMessage, get_connection
 from django.conf import settings
-
-
-
 
 def Notify(request, slug):
     Notic_details = Notification.objects.get(Notification_slug=slug)

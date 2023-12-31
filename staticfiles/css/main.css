@@ -1,0 +1,25 @@
+.active{
+    background-color: chocolate;
+    text-align: center;
+    color: black;
+}
+marquee {
+    background-color: rgb(114, 178, 50);
+    color: aliceblue;
+    line-height: 40px;
+    height: 40px;
+    margin-bottom: 0%;
+  }
+
+
+.navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .show > .nav-link{
+    color: #000;
+}
+
+.truncate-text {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        -webkit-line-clamp: 4; /* Number of lines to display */
+}
+

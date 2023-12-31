@@ -10,4 +10,7 @@ Learning can be much fun once you start applying it. This website is just here b
 """,
 'writer':'Yogendra',
 'testimonial':'Dont Compare yourself with others, You might not know your true potential until you try.',
+'EMAIL_HOST_USER_CONSTANTS':'',
+'EMAIL_HOST_PASSWORD_CONSTANTS': '',
+'DEFAULT_FROM_EMAIL_CONSTANTS': ''
 }
